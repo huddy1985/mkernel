@@ -13,7 +13,7 @@ int strlen(const char *str)
         return -2 - cnt;
 }
 
-int strcmp(const char *str1, const char *str2)
+int strcmp(const char *__s1, const char *__s2)
 {
         register unsigned long int __d0, __d1;
         register int __res;
