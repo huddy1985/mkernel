@@ -1,0 +1,50 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+BYTES_FOR_EACH_ELEMENT	kernel.c	10;"	d	file:
+COLUMNS_IN_LINE	kernel.c	9;"	d	file:
+ENTER_KEY_CODE	kernel.c	19;"	d	file:
+IDT	kernel.c	/^struct IDT_entry IDT[IDT_SIZE];$/;"	v	typeref:struct:IDT_entry
+IDT_SIZE	kernel.c	15;"	d	file:
+IDT_entry	kernel.c	/^struct IDT_entry {$/;"	s	file:
+INTERRUPT_GATE	kernel.c	16;"	d	file:
+KERNEL_CODE_SEGMENT_OFFSET	kernel.c	17;"	d	file:
+KEYBOARD_DATA_PORT	kernel.c	13;"	d	file:
+KEYBOARD_STATUS_PORT	kernel.c	14;"	d	file:
+LINES	kernel.c	8;"	d	file:
+SCREENSIZE	kernel.c	11;"	d	file:
+bits	kernel.asm	/^bits 32$/;"	l
+clear_screen	kernel.c	/^void clear_screen(void)$/;"	f
+current_loc	kernel.c	/^unsigned int current_loc = 0;$/;"	v
+extern	kernel.asm	/^extern keyboard_handler_main$/;"	l
+extern	kernel.asm	/^extern kmain 		;this is defined in the c file$/;"	l
+global	kernel.asm	/^global keyboard_handler$/;"	l
+global	kernel.asm	/^global load_idt$/;"	l
+global	kernel.asm	/^global read_port$/;"	l
+global	kernel.asm	/^global start$/;"	l
+global	kernel.asm	/^global write_port$/;"	l
+idt_init	kernel.c	/^void idt_init(void)$/;"	f
+kb_init	kernel.c	/^void kb_init(void)$/;"	f
+keyboard_handler	kernel.asm	/^keyboard_handler:                 $/;"	l
+keyboard_handler_main	kernel.c	/^void keyboard_handler_main(void)$/;"	f
+keyboard_map	keyboard_map.h	/^unsigned char keyboard_map[128] =$/;"	v
+kmain	kernel.c	/^void kmain(void)$/;"	f
+kprint	kernel.c	/^void kprint(const char *str)$/;"	f
+kprint_newline	kernel.c	/^void kprint_newline(void)$/;"	f
+load_idt	kernel.asm	/^load_idt:$/;"	l
+offset_higherbits	kernel.c	/^	unsigned short int offset_higherbits;$/;"	m	struct:IDT_entry	file:
+offset_lowerbits	kernel.c	/^	unsigned short int offset_lowerbits;$/;"	m	struct:IDT_entry	file:
+read_port	kernel.asm	/^read_port:$/;"	l
+resb	kernel.asm	/^resb 8192; 8KB for stack$/;"	l
+section	kernel.asm	/^section .bss$/;"	l
+section	kernel.asm	/^section .text$/;"	l
+selector	kernel.c	/^	unsigned short int selector;$/;"	m	struct:IDT_entry	file:
+stack_space	kernel.asm	/^stack_space:$/;"	l
+start	kernel.asm	/^start:$/;"	l
+type_attr	kernel.c	/^	unsigned char type_attr;$/;"	m	struct:IDT_entry	file:
+vidptr	kernel.c	/^char *vidptr = (char*)0xb8000;$/;"	v
+write_port	kernel.asm	/^write_port:$/;"	l
+zero	kernel.c	/^	unsigned char zero;$/;"	m	struct:IDT_entry	file:

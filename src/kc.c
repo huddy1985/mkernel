@@ -18,6 +18,8 @@
 
 #define ENTER_KEY_CODE 0x1C
 
+#define MAX_CMD_LEN	25
+
 extern unsigned char keyboard_map[128];
 extern void keyboard_handler(void);
 extern char read_port(unsigned short port);
@@ -29,6 +31,22 @@ unsigned int current_loc = 0;
 /* video memory begins at address 0xb8000 */
 char *vidptr = (char*)0xb8000;
 
+/* char array for command*/
+static char cmd[MAX_CMD_LEN] = { 0 };
+static unsigned char end_of_cmd = 0;
+
+/* Now support commands*/
+static char *commands[] = {
+        "ls",
+        "cp",
+        "pwd",
+        "date",
+        "cls",
+        0,
+};
+
+#define ARRAY_OF_LEN(array) sizeof(array)/sizeof(array[0])
+
 struct IDT_entry {
 	unsigned short int offset_lowerbits;
 	unsigned short int selector;
@@ -38,7 +56,6 @@ struct IDT_entry {
 };
 
 struct IDT_entry IDT[IDT_SIZE];
-
 
 void idt_init(void)
 {
@@ -108,6 +125,16 @@ void kprint(const char *str)
 	}
 }
 
+void kprint_newline(void);
+
+int does_command(char *str)
+{
+        kprint_newline();
+        kprint("does ");
+        kprint(str);
+        kprint(" a command ?");
+}
+
 void kprint_newline(void)
 {
 	unsigned int line_size = BYTES_FOR_EACH_ELEMENT * COLUMNS_IN_LINE;
@@ -128,7 +155,7 @@ void keyboard_handler_main(void)
 	unsigned char status;
 	char keycode;
 
-	/* write EOI */
+	/* write OI */
 	write_port(0x20, 0x20);
 
 	status = read_port(KEYBOARD_STATUS_PORT);
@@ -140,8 +167,11 @@ void keyboard_handler_main(void)
 
 		if(keycode == ENTER_KEY_CODE) {
 			kprint_newline();
+                        does_command(cmd);
+                        end_of_cmd = 0;
 			return;
-		}
+		} else
+                        cmd[end_of_cmd++] = keyboard_map[(unsigned char) keycode];
 
 		vidptr[current_loc++] = keyboard_map[(unsigned char) keycode];
 		vidptr[current_loc++] = 0x07;
