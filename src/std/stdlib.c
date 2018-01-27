@@ -48,3 +48,38 @@ int atoi(char *str)
 
         return (int)result * sign;
 }
+
+char* itoa(int val, char *buf, unsigned int base)
+{
+        char *p;
+        char *firstdig;
+        char temp;
+        unsigned digval;
+
+        p = buf;
+
+        if (val < 0) {
+                val = (unsigned long)(-(long)val);
+                *p++ = '-';
+        }
+
+        firstdig = p;
+        do {
+                digval = (unsigned)(val % base);
+                val /= base;
+                if (digval > 9)
+                        *p++ = digval - 10 + 'a';
+                else
+                        *p++ = (char)digval + '0';
+        } while (val > 0);
+
+        *p-- = '\0';
+        do {
+                temp = *p;
+                *p = *firstdig;
+                *firstdig = temp;
+                --p;
+                ++firstdig;
+        } while (firstdig < p);
+        return buf;
+}

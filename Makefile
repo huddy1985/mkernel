@@ -21,6 +21,9 @@ QEMU			:= qemu-system-i386
 
 TARGET 		= kernel
 
+run:$(TARGET)
+	qemu-system-i386 -kernel $(TARGET)
+
 $(TARGET): $(OBJ)
 	@echo $(OBJ)
 	@echo "src -->" $(SRC)

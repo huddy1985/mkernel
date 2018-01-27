@@ -14,6 +14,7 @@ global keyboard_handler
 global read_port
 global write_port
 global load_idt
+global set_cursor
 
 extern kmain 		;this is defined in the c file
 extern keyboard_handler_main
@@ -25,9 +26,9 @@ read_port:
 	ret
 
 write_port:
-	mov   edx, [esp + 4]    
-	mov   al, [esp + 4 + 4]  
-	out   dx, al  
+	mov   edx, [esp + 4]
+	mov   al, [esp + 4 + 4]
+	out   dx, al
 	ret
 
 load_idt:
@@ -36,15 +37,25 @@ load_idt:
 	sti 				;turn on interrupts
 	ret
 
-keyboard_handler:                 
+keyboard_handler:
 	call    keyboard_handler_main
 	iretd
 
 start:
 	cli 				;block interrupts
 	mov esp, stack_space
+    call set_cursor
 	call kmain
 	hlt 				;halt the CPU
+
+set_cursor:
+    push ax
+    push dx
+    mov ax, 03h
+    mov dx, 0
+    int 10h
+    pop dx
+    pop ax
 
 section .bss
 resb 8192; 8KB for stack
